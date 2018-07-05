@@ -52,7 +52,7 @@ public class MemberAddServlet extends HttpServlet{
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://13.125.81.120:3306/studydb",
+                    "jdbc:mysql://13.125.145.195:3306/studydb",
                     "study", "1111");
             PreparedStatement stmt = con.prepareStatement(
                 "insert into pms2_member(mid,email,pwd) values(?,?,PASSWORD(?))");

@@ -1,4 +1,4 @@
-package bitcamp.pms.servlet.member;
+package bitcamp.pms.servlet.board;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,17 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-@WebServlet("/member/view")
-public class MemberViewServlet extends HttpServlet {
+@WebServlet("/board/view")
+public class BoardViewServlet extends HttpServlet {
 
     @Override
-    protected void doGet(
-            HttpServletRequest request, 
-            HttpServletResponse response) throws ServletException, IOException {
-
-        request.setCharacterEncoding("UTF-8");
-        String id = request.getParameter("id");
-        String email = "";
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+     
+        int no = Integer.parseInt(request.getParameter("no"));
         
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -33,12 +29,11 @@ public class MemberViewServlet extends HttpServlet {
         out.println("<html>");
         out.println("<head>");
         out.println("<meta charset='UTF-8'>");
-        out.println("<title>멤버 보기</title>");
+        out.println("<title>게시물 보기</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<h1>멤버 보기</h1>");
+        out.println("<h1>게시물 보기</h1>");
         out.println("<form action='update' method='post'>");
-        
         try {
             Class.forName("com.mysql.jdbc.Driver");
             try (
@@ -46,32 +41,33 @@ public class MemberViewServlet extends HttpServlet {
                         "jdbc:mysql://13.125.145.195:3306/studydb",
                         "study", "1111");
                 PreparedStatement stmt = con.prepareStatement(
-                    "select mid,email from pms2_member where mid=?");) {
+                    "select bno,titl,cont,cdt from pms2_board where bno=?");) {
                 
-                stmt.setString(1, id);
+                stmt.setInt(1, no);
                 
                 try (ResultSet rs = stmt.executeQuery();) {
                     if (!rs.next()) 
-                        throw new Exception("유효하지 않은 멤버 아이디입니다.");
-                    
+                        throw new Exception("유효하지 않은 게시물 번호입니다.");
                     else {
                     
-                        email = rs.getString("email");
+                        out.println("<table border='1'>");
+                        out.println("<tr><th>번호</th><td>");
+                        out.printf("    <input type='text' name='no' value='%d' readonly></td></tr>\n", 
+                                rs.getInt("bno"));
+                        out.println("<tr><th>제목</th>");
+                        out.printf("    <td><input type='text' name='title' value='%s'></td></tr>\n",
+                                rs.getString("titl"));
+                        out.println("<tr><th>내용</th>");
+                        out.printf("    <td><textarea name='content' rows='10' cols='60'>%s</textarea></td></tr>\n",
+                                rs.getString("cont"));
+                        out.printf("<tr><th>등록일</th><td>%s</td></tr>\n", 
+                                rs.getDate("cdt"));
+                        out.println("</table>");
+                    
                     }
                 }
-            }
+            }  
             
-            out.println("<table border='1'>");
-            out.println("<tr><th>아이디</th><td>");
-            out.printf("    <input type='text' name='id' value='%s' readonly></td></tr>\n", 
-                    id);
-            out.println("<tr><th>이메일</th>");
-            out.printf("    <td><input type='email' name='email' value='%s'></td></tr>\n",
-                    email);
-            out.println("<tr><th>암호</th>");
-            out.println("    <td><input type='password' name='password'></td></tr>\n");
-            out.println("</table>");
-               
         } catch (Exception e) {
             out.printf("<p>%s</p>\n", e.getMessage());
             e.printStackTrace(out);
@@ -79,7 +75,7 @@ public class MemberViewServlet extends HttpServlet {
         out.println("<p>");
         out.println("<a href='list'>목록</a>");
         out.println("<button>변경</button>");
-        out.printf("<a href='delete?id=%s'>삭제</a>\n", id);
+        out.printf("<a href='delete?no=%d'>삭제</a>\n", no);
         out.println("</p>");
         out.println("</form>");
         out.println("</body>");
