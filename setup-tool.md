@@ -114,3 +114,10 @@ java106-java-project를 bitcamp-cloud-computing 폴더로 복사한다.
 
 
 npm install
+
+git add .
+git commit -m '...'
+git config --global user.email "adanam872@gmail.com"
+git config --global user.name "junghyun"
+git commit -m '..' (로컬에 백업)
+git push
