@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bitcamp.pms.dao.MemberDao;
 import bitcamp.pms.domain.Member;
 
 @SuppressWarnings("serial")
@@ -47,7 +48,7 @@ public class MemberListServlet extends HttpServlet {
         out.println("</tr>");
 
         try {    
-            List<Member> list = selectAll();
+            List<Member> list = MemberDao.selectAll();
             
             for (Member member : list) {
                 out.println("<tr>");
@@ -67,25 +68,4 @@ public class MemberListServlet extends HttpServlet {
         out.println("</html>");
     }
 
-    public List<Member> selectAll() throws Exception {
-        
-        Class.forName("com.mysql.jdbc.Driver");
-        try (
-                Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://13.125.145.195:3306/studydb",
-                    "study", "1111");
-                PreparedStatement stmt = con.prepareStatement(
-                    "select mid, email from pms2_member");
-                ResultSet rs = stmt.executeQuery();) {
-                
-                List<Member> list = new ArrayList<>();
-                while (rs.next()) {
-                    Member member = new Member();
-                    member.setId(rs.getString("mid"));
-                    member.setEmail(rs.getString("email"));
-                    list.add(member);
-                }
-                return list;
-        }
-    }
 }

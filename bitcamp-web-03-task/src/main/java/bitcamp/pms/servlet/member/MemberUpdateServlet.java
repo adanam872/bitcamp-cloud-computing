@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bitcamp.pms.dao.MemberDao;
 import bitcamp.pms.domain.Member;
 
 
@@ -47,7 +48,7 @@ public class MemberUpdateServlet extends HttpServlet {
             member.setEmail(request.getParameter("email"));
             member.setPassword(request.getParameter("password"));
             
-            if (update(member) == 0) {
+            if (MemberDao.update(member) == 0) {
                 out.println("<p>해당 회원이 존재하지 않습니다.</p>");
             } else {
                 out.println("<p>변경하였습니다.</p>");
@@ -60,20 +61,4 @@ public class MemberUpdateServlet extends HttpServlet {
         out.println("</html>");
     }
     
-    public int update(Member member) throws Exception {
-        Class.forName("com.mysql.jdbc.Driver");
-        try (
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://13.125.145.195:3306/studydb",
-                    "study", "1111");
-            PreparedStatement stmt = con.prepareStatement(
-                "update pms2_member set email=?, pwd=password(?) where mid=?");) {
-            
-            stmt.setString(1, member.getEmail());
-            stmt.setString(2, member.getPassword());
-            stmt.setString(3, member.getId());
-            
-            return stmt.executeUpdate();
-        }
-    }
 }

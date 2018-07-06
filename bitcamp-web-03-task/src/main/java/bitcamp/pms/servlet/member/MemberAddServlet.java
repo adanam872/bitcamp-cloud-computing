@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bitcamp.pms.dao.MemberDao;
 import bitcamp.pms.domain.Member;
 
 @SuppressWarnings("serial")
@@ -44,7 +45,7 @@ public class MemberAddServlet extends HttpServlet{
             member.setId(request.getParameter("id"));
             member.setEmail(request.getParameter("email"));
             member.setPassword(request.getParameter("password"));
-            insert(member);
+            MemberDao.insert(member);
             out.println("<p>등록 성공!</p>");
         } catch (Exception e) {
             out.println("<p>등록 실패!</p>");
@@ -54,19 +55,5 @@ public class MemberAddServlet extends HttpServlet{
         out.println("</html>");
     }
     
-    public void insert(Member member) throws Exception {
-        Class.forName("com.mysql.jdbc.Driver");
-        try (
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://13.125.145.195:3306/studydb",
-                    "study", "1111");
-            PreparedStatement stmt = con.prepareStatement(
-                "insert into pms2_member(mid,email,pwd) values(?,?,PASSWORD(?))"); ) {
-                
-            stmt.setString(1, member.getId());
-            stmt.setString(2, member.getEmail());
-            stmt.setString(3, member.getPassword());
-            stmt.execute();
-        }
-    }
+
 }
