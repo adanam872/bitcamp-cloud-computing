@@ -7,9 +7,13 @@
 
 ## web-02 : 서블릿
 - 서블릿으로 웹애플리케이션 만들기 + 배포
+- JDBC를 이용하여 데이터를 다루는 방법
 
 ## web-03 : JDBC 
 - JDBC 이용하여 데이터를 다루는 방법
+- ServletContextListener에서 DAO 객체를 준비한다
+- ServletCOntext 보관소에 DAO객체를 저장한다
+- 서블릿은 Servlet 
 
 ## web-04 : DAO
 - 데이터 처리를 전문으로 하는 DAO 객체를 도입
