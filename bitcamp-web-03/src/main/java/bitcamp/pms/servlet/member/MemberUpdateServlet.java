@@ -43,12 +43,12 @@ public class MemberUpdateServlet extends HttpServlet {
         
         try {
             Member member = new Member();
-            
+            MemberDao memberDao = new MemberDao("jdbc:mysql://13.125.145.195:3306/studydb", "study", "1111");
             member.setId(request.getParameter("id"));
             member.setEmail(request.getParameter("email"));
             member.setPassword(request.getParameter("password"));
 
-            int count = MemberDao.update(member);
+            int count = memberDao.update(member);
             if (count == 0) {
                 out.println("<p>해당 회원이 존재하지 않습니다.</p>");
             } else {

@@ -11,19 +11,25 @@ import bitcamp.pms.domain.Member;
 
 public class MemberDao {
     
-    static String jdbcUrl = "jdbc:mysql://13.125.145.195:3306/studydb";
-    static String username = "study";
-    static String password = "1111";
-    
     static {
-       try {
-           Class.forName("com.mysql.jdbc.Driver");
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public static List<Member> selectList() throws Exception {
+    String jdbcUrl;
+    String username;
+    String password;
+    
+    public MemberDao(String jdbcUrl, String username, String password) {
+        this.jdbcUrl = jdbcUrl;
+        this.username = username;
+        this.password = password;
+    }
+    
+    public List<Member> selectList() throws Exception {
         
         try (
             Connection con = DriverManager.getConnection(
@@ -44,7 +50,7 @@ public class MemberDao {
         }
     }
     
-    public static Member selectone(String id) throws Exception {
+    public Member selectone(String id) throws Exception {
         
         Member member = new Member();
         
@@ -70,7 +76,7 @@ public class MemberDao {
         return member;
     }
     
-    public static int update(Member member) throws Exception {
+    public int update(Member member) throws Exception {
         
         int count = 0;
         try (
@@ -88,7 +94,7 @@ public class MemberDao {
         return count;
     }
     
-    public static int delete(String id) throws Exception {
+    public int delete(String id) throws Exception {
         
         int count = 0;
         try(
@@ -104,7 +110,7 @@ public class MemberDao {
         return count;
     }
     
-    public static void insert(Member member) throws Exception {
+    public void insert(Member member) throws Exception {
         
         try(Connection con = DriverManager.getConnection(
                 jdbcUrl, username, password);
