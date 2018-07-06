@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,7 +49,8 @@ public class MemberUpdateServlet extends HttpServlet {
             member.setEmail(request.getParameter("email"));
             member.setPassword(request.getParameter("password"));
             
-            MemberDao memberDao = new MemberDao("jdbc:mysql://13.125.145.195:3306/studydb", "study", "1111");
+            ServletContext sc = this.getServletContext();
+            MemberDao memberDao = (MemberDao)sc.getAttribute("memberDao");
             if (memberDao.update(member) == 0) {
                 out.println("<p>해당 회원이 존재하지 않습니다.</p>");
             } else {

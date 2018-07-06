@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,7 +43,8 @@ public class MemberViewServlet extends HttpServlet {
         out.println("<form action='update' method='post'>");
         
         try {
-            MemberDao memberDao = new MemberDao("jdbc:mysql://13.125.145.195:3306/studydb", "study", "1111");
+            ServletContext sc = this.getServletContext();
+            MemberDao memberDao = (MemberDao)sc.getAttribute("memberDao");
             Member member = memberDao.selectOne(id);
             
             out.println("<table border='1'>");

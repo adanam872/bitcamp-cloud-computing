@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,8 +48,9 @@ public class MemberListServlet extends HttpServlet {
         out.println("    <th>아이디</th><th>이메일</th>");
         out.println("</tr>");
 
-        try {    
-            MemberDao memberDao = new MemberDao("jdbc:mysql://13.125.145.195:3306/studydb", "study", "1111");
+        try {
+            ServletContext sc = this.getServletContext(); //this 빼도 된다.
+            MemberDao memberDao = (MemberDao)sc.getAttribute("memberDao");
             List<Member> list = memberDao.selectAll();
             
             for (Member member : list) {
