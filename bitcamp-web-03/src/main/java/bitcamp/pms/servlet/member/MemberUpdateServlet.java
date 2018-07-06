@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,7 +44,8 @@ public class MemberUpdateServlet extends HttpServlet {
         
         try {
             Member member = new Member();
-            MemberDao memberDao = new MemberDao("jdbc:mysql://13.125.145.195:3306/studydb", "study", "1111");
+            ServletContext sc = this.getServletContext(); //this 빼도 된다.
+            MemberDao memberDao = (MemberDao)sc.getAttribute("memberDao");
             member.setId(request.getParameter("id"));
             member.setEmail(request.getParameter("email"));
             member.setPassword(request.getParameter("password"));

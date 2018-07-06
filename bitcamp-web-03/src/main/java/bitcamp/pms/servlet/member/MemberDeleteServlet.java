@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +36,8 @@ public class MemberDeleteServlet extends HttpServlet {
         out.println("<h1>게시물 삭제 결과</h1>");
 
         try {
-            MemberDao memberDao = new MemberDao("jdbc:mysql://13.125.145.195:3306/studydb", "study", "1111");
+            ServletContext sc = this.getServletContext(); //this 빼도 된다.
+            MemberDao memberDao = (MemberDao)sc.getAttribute("memberDao");
             int count = memberDao.delete(request.getParameter("id"));
             if (count == 0) {
                 out.println("<p>해당 회원이 없습니다.</p>");

@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,7 +46,8 @@ public class MemberListServlet extends HttpServlet {
         out.println("</tr>");
 
         try {
-            MemberDao memberDao = new MemberDao("jdbc:mysql://13.125.145.195:3306/studydb", "study", "1111");
+            ServletContext sc = this.getServletContext(); //this 빼도 된다.
+            MemberDao memberDao = (MemberDao)sc.getAttribute("memberDao");
             List<Member> list = memberDao.selectList();
             for (Member member : list) {
                 out.println("<tr>");
