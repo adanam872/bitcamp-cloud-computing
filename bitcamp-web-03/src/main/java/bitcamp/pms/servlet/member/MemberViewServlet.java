@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bitcamp.pms.dao.MemberDao;
 import bitcamp.pms.domain.Member;
 
 @SuppressWarnings("serial")
@@ -42,7 +43,7 @@ public class MemberViewServlet extends HttpServlet {
         
         try {
             
-            Member member = selectone(id);
+            Member member = MemberDao.selectone(id);
             out.println("<table border='1'>");
             out.println("<tr><th>아이디</th><td>");
             out.printf("    <input type='text' name='id' value='%s' readonly></td></tr>\n", 
@@ -68,30 +69,4 @@ public class MemberViewServlet extends HttpServlet {
         out.println("</html>");
     }
     
-    private Member selectone(String id) throws Exception {
-        
-        Member member = new Member();
-        Class.forName("com.mysql.jdbc.Driver");
-        try (
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://13.125.145.195:3306/studydb",
-                    "study", "1111");
-            PreparedStatement stmt = con.prepareStatement(
-                "select mid,email from pms2_member where mid=?");) {
-            
-            stmt.setString(1, id);
-            
-            
-            try (ResultSet rs = stmt.executeQuery();) {
-                if (!rs.next()) 
-                    throw new Exception("유효하지 않은 멤버 아이디입니다.");
-                else {
-                    member.setId(id);
-                    member.setEmail(rs.getString("email"));
-                }
-            }
-        }
-        
-        return member;
-    }
 }
