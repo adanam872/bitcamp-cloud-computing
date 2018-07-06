@@ -42,7 +42,7 @@ public class MemberViewServlet extends HttpServlet {
         out.println("<form action='update' method='post'>");
         
         try {
-            MemberDao memberDao = new MemberDao();
+            MemberDao memberDao = new MemberDao("jdbc:mysql://13.125.145.195:3306/studydb", "study", "1111");
             Member member = memberDao.selectOne(id);
             
             out.println("<table border='1'>");

@@ -22,9 +22,15 @@ public class MemberDao {
         
     }
     
-    String jdbcUrl = "jdbc:mysql://13.125.145.195:3306/studydb";
-    String username = "study";
-    String password = "1111";
+    String jdbcUrl;
+    String username;
+    String password;
+    
+    public MemberDao(String jdbcUrl, String username, String password) {
+        this.jdbcUrl = jdbcUrl;
+        this.username = username;
+        this.password = password;
+    }
     
     public List<Member> selectAll() throws Exception {
         try (

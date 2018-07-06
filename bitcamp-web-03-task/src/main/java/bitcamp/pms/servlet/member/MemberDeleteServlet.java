@@ -37,7 +37,7 @@ public class MemberDeleteServlet extends HttpServlet {
 
         try {
 
-            MemberDao memberDao = new MemberDao();
+            MemberDao memberDao = new MemberDao("jdbc:mysql://13.125.145.195:3306/studydb", "study", "1111");
             if (memberDao.delete(request.getParameter("id")) == 0) {
                 out.println("<p>해당 회원이 없습니다.</p>");
             } else {
