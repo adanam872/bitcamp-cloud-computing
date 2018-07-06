@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bitcamp.pms.domain.Member;
+
 @SuppressWarnings("serial")
 @WebServlet("/member/view")
 public class MemberViewServlet extends HttpServlet {
@@ -24,7 +26,6 @@ public class MemberViewServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         String id = request.getParameter("id");
-        String email = "";
         
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -40,34 +41,15 @@ public class MemberViewServlet extends HttpServlet {
         out.println("<form action='update' method='post'>");
         
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            try (
-                Connection con = DriverManager.getConnection(
-                        "jdbc:mysql://13.125.145.195:3306/studydb",
-                        "study", "1111");
-                PreparedStatement stmt = con.prepareStatement(
-                    "select mid,email from pms2_member where mid=?");) {
-                
-                stmt.setString(1, id);
-                
-                try (ResultSet rs = stmt.executeQuery();) {
-                    if (!rs.next()) 
-                        throw new Exception("유효하지 않은 멤버 아이디입니다.");
-                    
-                    else {
-                    
-                        email = rs.getString("email");
-                    }
-                }
-            }
             
+            Member member = selectone(id);
             out.println("<table border='1'>");
             out.println("<tr><th>아이디</th><td>");
             out.printf("    <input type='text' name='id' value='%s' readonly></td></tr>\n", 
                     id);
             out.println("<tr><th>이메일</th>");
             out.printf("    <td><input type='email' name='email' value='%s'></td></tr>\n",
-                    email);
+                    member.getEmail());
             out.println("<tr><th>암호</th>");
             out.println("    <td><input type='password' name='password'></td></tr>\n");
             out.println("</table>");
@@ -84,5 +66,32 @@ public class MemberViewServlet extends HttpServlet {
         out.println("</form>");
         out.println("</body>");
         out.println("</html>");
+    }
+    
+    private Member selectone(String id) throws Exception {
+        
+        Member member = new Member();
+        Class.forName("com.mysql.jdbc.Driver");
+        try (
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://13.125.145.195:3306/studydb",
+                    "study", "1111");
+            PreparedStatement stmt = con.prepareStatement(
+                "select mid,email from pms2_member where mid=?");) {
+            
+            stmt.setString(1, id);
+            
+            
+            try (ResultSet rs = stmt.executeQuery();) {
+                if (!rs.next()) 
+                    throw new Exception("유효하지 않은 멤버 아이디입니다.");
+                else {
+                    member.setId(id);
+                    member.setEmail(rs.getString("email"));
+                }
+            }
+        }
+        
+        return member;
     }
 }

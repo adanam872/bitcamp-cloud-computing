@@ -19,8 +19,6 @@ public class MemberDeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
    
-        String id = request.getParameter("id");
-
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -35,15 +33,7 @@ public class MemberDeleteServlet extends HttpServlet {
         out.println("<h1>게시물 삭제 결과</h1>");
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://13.125.145.195:3306/studydb",
-                    "study", "1111");
-            PreparedStatement stmt = con.prepareStatement(
-                    "delete from pms2_member where mid=?");
-
-            stmt.setString(1, id);
-            int count = stmt.executeUpdate();
+            int count = delete(request.getParameter("id"));
             if (count == 0) {
                 out.println("<p>해당 회원이 없습니다.</p>");
             } else {
@@ -55,5 +45,22 @@ public class MemberDeleteServlet extends HttpServlet {
         }
         out.println("</body>");
         out.println("</html>");
+    }
+    
+    private int delete(String id) throws Exception {
+        Class.forName("com.mysql.jdbc.Driver");
+        int count = 0;
+        try(
+        Connection con = DriverManager.getConnection(
+                "jdbc:mysql://13.125.145.195:3306/studydb",
+                "study", "1111");
+        PreparedStatement stmt = con.prepareStatement(
+                "delete from pms2_member where mid=?"); ) {
+
+            stmt.setString(1, id);
+            count = stmt.executeUpdate();
+
+        }
+        return count;
     }
 }
