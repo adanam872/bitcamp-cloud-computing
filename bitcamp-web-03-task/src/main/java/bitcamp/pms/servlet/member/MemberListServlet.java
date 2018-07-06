@@ -48,7 +48,8 @@ public class MemberListServlet extends HttpServlet {
         out.println("</tr>");
 
         try {    
-            List<Member> list = MemberDao.selectAll();
+            MemberDao memberDao = new MemberDao();
+            List<Member> list = memberDao.selectAll();
             
             for (Member member : list) {
                 out.println("<tr>");
