@@ -10,13 +10,24 @@ import java.util.List;
 import bitcamp.pms.domain.Member;
 
 public class MemberDao {
+    
+    static String jdbcUrl = "jdbc:mysql://13.125.145.195:3306/studydb";
+    static String username = "study";
+    static String password = "1111";
+    
+    static {
+       try {
+           Class.forName("com.mysql.jdbc.Driver");
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+    }
 
     public static List<Member> selectList() throws Exception {
-        Class.forName("com.mysql.jdbc.Driver");
+        
         try (
             Connection con = DriverManager.getConnection(
-                "jdbc:mysql://13.125.145.195:3306/studydb",
-                "study", "1111");
+                jdbcUrl, username, password);
             PreparedStatement stmt = con.prepareStatement(
                 "select mid, email from pms2_member");
             ResultSet rs = stmt.executeQuery();) {
@@ -36,11 +47,10 @@ public class MemberDao {
     public static Member selectone(String id) throws Exception {
         
         Member member = new Member();
-        Class.forName("com.mysql.jdbc.Driver");
+        
         try (
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://13.125.145.195:3306/studydb",
-                    "study", "1111");
+                    jdbcUrl, username, password);
             PreparedStatement stmt = con.prepareStatement(
                 "select mid,email from pms2_member where mid=?");) {
             
@@ -61,12 +71,11 @@ public class MemberDao {
     }
     
     public static int update(Member member) throws Exception {
-        Class.forName("com.mysql.jdbc.Driver");
+        
         int count = 0;
         try (
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://13.125.145.195:3306/studydb",
-                    "study", "1111");
+                    jdbcUrl, username, password);
             PreparedStatement stmt = con.prepareStatement(
                 "update pms2_member set email=?, pwd=password(?) where mid=?");) {
             
@@ -80,12 +89,11 @@ public class MemberDao {
     }
     
     public static int delete(String id) throws Exception {
-        Class.forName("com.mysql.jdbc.Driver");
+        
         int count = 0;
         try(
         Connection con = DriverManager.getConnection(
-                "jdbc:mysql://13.125.145.195:3306/studydb",
-                "study", "1111");
+                jdbcUrl, username, password);
         PreparedStatement stmt = con.prepareStatement(
                 "delete from pms2_member where mid=?"); ) {
 
@@ -97,10 +105,9 @@ public class MemberDao {
     }
     
     public static void insert(Member member) throws Exception {
-        Class.forName("com.mysql.jdbc.Driver");
+        
         try(Connection con = DriverManager.getConnection(
-                "jdbc:mysql://13.125.145.195:3306/studydb",
-                "study", "1111");
+                jdbcUrl, username, password);
         PreparedStatement stmt = con.prepareStatement(
             "insert into pms2_member(mid,email,pwd) values(?,?,PASSWORD(?))");) {
         
