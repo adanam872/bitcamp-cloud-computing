@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,45 +31,22 @@ public class MemberViewServlet extends HttpServlet {
         String id = request.getParameter("id");
         
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset='UTF-8'>");
-        out.println("<title>멤버 보기</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>멤버 보기</h1>");
-        out.println("<form action='update' method='post'>");
         
         try {
             ServletContext sc = this.getServletContext(); //this 빼도 된다.
             MemberDao memberDao = (MemberDao)sc.getAttribute("memberDao");
             Member member = memberDao.selectone(id);
-            out.println("<table border='1'>");
-            out.println("<tr><th>아이디</th><td>");
-            out.printf("    <input type='text' name='id' value='%s' readonly></td></tr>\n", 
-                    id);
-            out.println("<tr><th>이메일</th>");
-            out.printf("    <td><input type='email' name='email' value='%s'></td></tr>\n",
-                    member.getEmail());
-            out.println("<tr><th>암호</th>");
-            out.println("    <td><input type='password' name='password'></td></tr>\n");
-            out.println("</table>");
                
+            request.setAttribute("member", member);
+            
+            RequestDispatcher rd = request.getRequestDispatcher("/member/view.jsp");
+            rd.include(request, response);
         } catch (Exception e) {
-            out.printf("<p>%s</p>\n", e.getMessage());
-            e.printStackTrace(out);
+            request.setAttribute("error", e);
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.include(request, response);
         }
-        out.println("<p>");
-        out.println("<a href='list'>목록</a>");
-        out.println("<button>변경</button>");
-        out.printf("<a href='delete?id=%s'>삭제</a>\n", id);
-        out.println("</p>");
-        out.println("</form>");
-        out.println("</body>");
-        out.println("</html>");
     }
     
 }

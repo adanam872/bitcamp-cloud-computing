@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,22 +25,7 @@ public class MemberAddServlet extends HttpServlet{
     protected void doPost(
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
-        
-        request.setCharacterEncoding("UTF-8");
-        
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset='UTF-8'>");
-        out.println("<meta http-equiv='Refresh' content='1;url=list'>");
-        
-        out.println("<title>회원 등록</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>회원 등록 결과</h1>");
+            
         
         try {
             ServletContext sc = this.getServletContext(); //this 빼도 된다.
@@ -51,14 +37,13 @@ public class MemberAddServlet extends HttpServlet{
             member.setPassword(request.getParameter("password"));
             
             memberDao.insert(member);
+            response.sendRedirect("list");
             
-            out.println("<p>등록 성공!</p>");
         } catch (Exception e) {
-            out.println("<p>등록 실패!</p>");
-            e.printStackTrace(out);
+            request.setAttribute("error", e);
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
         }
-        out.println("</body>");
-        out.println("</html>");
     }
     
 }
