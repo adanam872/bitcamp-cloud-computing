@@ -7,121 +7,61 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
 import bitcamp.pms.domain.Member;
 
 public class MemberDao {
-    
-    static {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    String jdbcUrl;
-    String username;
-    String password;
+    SqlSessionFactory sqlSessionFactory;
     
-    public MemberDao(String jdbcUrl, String username, String password) {
-        this.jdbcUrl = jdbcUrl;
-        this.username = username;
-        this.password = password;
+    public MemberDao(SqlSessionFactory sqlSessionFactory) {
+        this.sqlSessionFactory = sqlSessionFactory;        
     }
     
     public List<Member> selectList() throws Exception {
         
         try (
-            Connection con = DriverManager.getConnection(
-                jdbcUrl, username, password);
-            PreparedStatement stmt = con.prepareStatement(
-                "select mid, email from pms2_member");
-            ResultSet rs = stmt.executeQuery();) {
+            SqlSession sqlSession = sqlSessionFactory.openSession()) {
             
-            ArrayList<Member> list = new ArrayList<>();
-            while (rs.next()) {
-                Member member = new Member();
-                member.setId(rs.getString("mid"));
-                member.setEmail(rs.getString("email"));
-                list.add(member);
-            }
-            
-            return list;
+            return sqlSession.selectList("member.selectList");
         }
     }
     
-    public Member selectone(String id) throws Exception {
+    public Member selectOne(String id) throws Exception {
         
         Member member = new Member();
-        
         try (
-            Connection con = DriverManager.getConnection(
-                    jdbcUrl, username, password);
-            PreparedStatement stmt = con.prepareStatement(
-                "select mid,email from pms2_member where mid=?");) {
-            
-            stmt.setString(1, id);
-            
-            
-            try (ResultSet rs = stmt.executeQuery();) {
-                if (!rs.next()) 
-                    throw new Exception("유효하지 않은 멤버 아이디입니다.");
-                else {
-                    member.setId(id);
-                    member.setEmail(rs.getString("email"));
-                }
+                SqlSession sqlSession = sqlSessionFactory.openSession()) {
+                return sqlSession.selectOne("member.selectOne", id);
             }
-        }
-        
-        return member;
     }
     
     public int update(Member member) throws Exception {
-        
-        int count = 0;
         try (
-            Connection con = DriverManager.getConnection(
-                    jdbcUrl, username, password);
-            PreparedStatement stmt = con.prepareStatement(
-                "update pms2_member set email=?, pwd=password(?) where mid=?");) {
-            
-            stmt.setString(1, member.getEmail());
-            stmt.setString(2, member.getPassword());
-            stmt.setString(3, member.getId());
-            
-            count = stmt.executeUpdate();
-        }
-        return count;
+                SqlSession sqlSession = sqlSessionFactory.openSession()) {
+                int count = sqlSession.update("member.update", member);
+                sqlSession.commit();
+                return count;
+            }
     }
     
     public int delete(String id) throws Exception {
-        
-        int count = 0;
-        try(
-        Connection con = DriverManager.getConnection(
-                jdbcUrl, username, password);
-        PreparedStatement stmt = con.prepareStatement(
-                "delete from pms2_member where mid=?"); ) {
-
-            stmt.setString(1, id);
-            count = stmt.executeUpdate();
-
-        }
-        return count;
+        try (
+                SqlSession sqlSession = sqlSessionFactory.openSession()) {
+                int count = sqlSession.delete("member.delete", id);
+                sqlSession.commit();
+                return count;
+            }
     }
     
-    public void insert(Member member) throws Exception {
-        
-        try(Connection con = DriverManager.getConnection(
-                jdbcUrl, username, password);
-        PreparedStatement stmt = con.prepareStatement(
-            "insert into pms2_member(mid,email,pwd) values(?,?,PASSWORD(?))");) {
-        
-        
-            stmt.setString(1, member.getId());
-            stmt.setString(2, member.getEmail());
-            stmt.setString(3, member.getPassword());
-            stmt.execute();
-        }
+    public int insert(Member member) throws Exception {
+        try (
+                SqlSession sqlSession = sqlSessionFactory.openSession()) {
+                int count = sqlSession.insert("member.insert", member);
+                sqlSession.commit();
+                return count;
+            }
     }
 }

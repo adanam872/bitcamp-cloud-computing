@@ -36,7 +36,7 @@ public class MemberViewServlet extends HttpServlet {
         try {
             ServletContext sc = this.getServletContext(); //this 빼도 된다.
             MemberDao memberDao = (MemberDao)sc.getAttribute("memberDao");
-            Member member = memberDao.selectone(id);
+            Member member = memberDao.selectOne(id);
                
             request.setAttribute("member", member);
             
