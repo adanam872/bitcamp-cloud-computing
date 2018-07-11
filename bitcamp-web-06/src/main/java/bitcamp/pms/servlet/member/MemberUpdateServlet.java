@@ -40,17 +40,13 @@ public class MemberUpdateServlet extends HttpServlet {
 
             int count = memberDao.update(member);
             if (count == 0) {
-                
-                RequestDispatcher rd = request.getRequestDispatcher("/member/updatefail.jsp");
-                rd.forward(request, response);
+                request.setAttribute("view", "/member/updatefail.jsp");
             } else {               
-                response.sendRedirect("list");
+                request.setAttribute("view", "redirect:list");
             }
             
         } catch (Exception e) {
             request.setAttribute("error", e);
-            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
-            rd.include(request, response);
         }
     }
     

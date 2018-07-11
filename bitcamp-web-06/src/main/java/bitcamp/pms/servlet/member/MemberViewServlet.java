@@ -40,12 +40,9 @@ public class MemberViewServlet extends HttpServlet {
                
             request.setAttribute("member", member);
             
-            RequestDispatcher rd = request.getRequestDispatcher("/member/view.jsp");
-            rd.include(request, response);
+            request.setAttribute("view", "/member/view.jsp");
         } catch (Exception e) {
             request.setAttribute("error", e);
-            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
-            rd.include(request, response);
         }
     }
     

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +23,7 @@
 </tr>
 </table>
 <button>등록</button>
+</form>
 
 
 </body>

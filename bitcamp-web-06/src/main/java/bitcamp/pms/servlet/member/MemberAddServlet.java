@@ -22,6 +22,11 @@ import bitcamp.pms.domain.Member;
 public class MemberAddServlet extends HttpServlet{
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("view", "/member/form.jsp");
+    }
+    
+    @Override
     protected void doPost(
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
@@ -37,12 +42,10 @@ public class MemberAddServlet extends HttpServlet{
             member.setPassword(request.getParameter("password"));
             
             memberDao.insert(member);
-            response.sendRedirect("list");
+            request.setAttribute("view", "redirect:list");
             
         } catch (Exception e) {
             request.setAttribute("error", e);
-            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
         }
     }
     
