@@ -30,6 +30,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.mybatis/mybatis
     compile group: 'org.mybatis', name: 'mybatis', version: '3.4.6'
     
+    // Spring IoC Container library
+    // https://mvnrepository.com/artifact/org.springframework/spring-context
+    compile group: 'org.springframework', name: 'spring-context', version: '5.0.7.RELEASE'
+    
 
     // This dependency is found on compile classpath of this component and consumers.
     // compile 'com.google.guava:guava:23.0'

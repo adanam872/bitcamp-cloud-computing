@@ -1,18 +1,13 @@
 package bitcamp.pms.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import bitcamp.pms.annotation.Autowired;
-import bitcamp.pms.annotation.Repository;
 import bitcamp.pms.domain.Member;
 
 @Repository
