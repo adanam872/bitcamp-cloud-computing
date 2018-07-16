@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import bitcamp.pms.annotation.RequestMapping;
 
@@ -31,7 +32,6 @@ public class DispatcherServlet extends HttpServlet {
         // Spring의 ContextLoaderListener가 준비한 IoC 컨테이너를 사용하려면
         // 다음과 같이 다른 클래스의 도움을 받아서 IoC 컨테이너를 꺼내야 한다.
         iocContainer = WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
-        
         System.out.println("----------컨테이너 객체-----------");
         // IoC 컨테이너에 들어있는 객체를 한 번 출력해보자!
         String[] names = iocContainer.getBeanDefinitionNames();

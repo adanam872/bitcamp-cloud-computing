@@ -24,5 +24,37 @@
 - dao에 my-batis 프레임워크를 적용하여 코드와 SQL문을 분리한다.
 - 반복적으로 작성했던 JDBC 코드를 캡슐화한다.
 
-## web-06 : 
+## web-06 : Front Controller 도입
+- 서블릿들이 공통으로 수행하는 작업을 프론트 컨트롤러에게 맡긴다.
+- 나머지 서블릿들은 "Page Controller"로 부른다
 
+## web-07 : pageController를 POJO로 변환
+- 프론트 컨트롤러가 도입되면 페이지 컨트롤러는 일반 자바 객체로 만들어도 된다.
+
+## web-08 : 애노테이션으로 요청 핸들러 다루기
+- 요청핸들러(Request handler) : 클라이언트 요청이 들어왔을 때 호출되는 메서드. 즉 클라이언트 요청을 처리하는 메서드.
+- 인터페이스를 구현하는 대신에 애노테이션으로 요청핸들러를 표시하여 프론트 컨트롤러가 찾게 한다.
+- 이렇게 함으로써 페이지 컨트롤러를 만들 때 특정 인터페이스에 종속되지 않게 한다.
+
+## web-09 : 객체 생성을 자동화하기 위해 IoC컨테이너를 만들기
+- IoC컨테이너를 통해 페이지 컨트롤러의 객체를 자동 생성한다.
+- 페이지 컨트롤러의 의존 객체를 자동으로 주입한다.
+
+## web-10 : Spring IoC 컨테이너 도입
+- 기존 직접 만든 IoC 컨테이너 대신에 스프링 컨테이너를 사용한다.
+
+## web-11 : Spring + Mybatis 연동하기
+- 기존에 직접 만드 SqlSessionFactoryBean 대신에 Mybatis가 제공하는 SqlSessionFactoryBean을 사용한다.
+- DB 커넥션풀은 Mybatis 대신에 Spring에서 관리한다.
+- 트랜잭션을 다룰 수 있도록 트랜잭션 관리자를 설정한다.
+- Proxy 패턴을 사용한 DAO 자동 생성 기능일 이용한다.
+
+## web-12 : Spring Web MVC에서 제공하는 ContextLoaderListener사용하기
+- 기존에 직접 만든 ContextLoaderListener 대신에 Spring Web MVC에서 제공하는 클래스를 사용한다.
+
+## web-13 : Spring WebMVC의 DispatcherServlet 사용하기
+- 기존에 직접 만든 DispatcherServlet대신에 Spring WebMVC에서 제공하는 클래스를 사용한다.
+
+## web-14 : JSP 경로를 /WEB-INF/ 폴더 아래로 옮긴다.
+- /WEB-INF 폴더 아래로 JSP를 옮기면 클라이언트에서 직접 요청할 수 없다.
+- 
