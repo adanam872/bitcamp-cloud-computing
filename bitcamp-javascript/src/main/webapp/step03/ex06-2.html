@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+</head>
+<body>
+
+	<h1>arrow 함수 - parameter 다루기</h1>
+
+
+	<script>
+        var f1 = () => {
+            console.log("hello");
+        }
+        
+        f1();
+
+        var f2 = (a) => {
+            console.log(a);
+        };
+        
+        f2(100);
+        
+        var f3 = a => {
+            console.log(a);
+        };
+        
+        f3(200);
+        
+        var f4 = (a, b, c) => {
+            console.log(a, b, c);
+        };
+        
+        f4(100,200,300,400);
+    </script>
+</body>
+</html>

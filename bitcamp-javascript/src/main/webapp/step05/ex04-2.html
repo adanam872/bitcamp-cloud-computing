@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+</head>
+<body>
+
+	<h1>navigator객체 - GEO 위치정보</h1>
+
+
+	<script>
+        var pos;
+        navigator.geolocation.getCurrentPosition(function(position) {
+            // 비동기식 방법, 시간이 걸리기 때문에 작업이 끝났을 때 호출함
+            console.log("222222");
+            displayLocation(position);
+        });
+
+        console.log("111111");
+        function displayLocation(position) {
+
+            console.log(position.coords.latitude, position.coords.longitude);
+        }
+    </script>
+</body>
+</html>

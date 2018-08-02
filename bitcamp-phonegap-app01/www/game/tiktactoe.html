@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>game</title>
+<link rel="stylesheet"
+	href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+<style>
+.container {
+	border: solid 1px rgba(0, 0, 0, 0.3);
+	padding-top: 20px;
+	padding-bottom: 20px;
+	text-align: center;
+}
+
+td {
+	width: 90px;
+	height: 90px;
+	text-align: center;
+	font-size: 39px;
+}
+
+table {
+	margin-top: 20px;
+	table-layout: fixed;
+}
+</style>
+</head>
+
+<body>
+	<div class="container">
+		<nav class="nav">
+			<div class="col-auto my-1">
+				<label class="mr-sm-2 sr-only" for="selectDifficulty">Difficulty</label>
+				<select class="custom-select mr-sm-2" id="selectDifficulty">
+					<option value="1" selected>Easy</option>
+					<option value="2">Normal</option>
+					<option value="3">Hard</option>
+				</select>
+			</div>
+		</nav>
+
+
+		<table class="table table-bordered table-dark">
+			<tbody>
+
+				<tr>
+					<td class="click" id="td00"></td>
+					<td class="click" id="td01"></td>
+					<td class="click" id="td02"></td>
+				</tr>
+				<tr>
+					<td class="click" id="td10"></td>
+					<td class="click" id="td11"></td>
+					<td class="click" id="td12"></td>
+				</tr>
+				<tr>
+					<td class="click" id="td20"></td>
+					<td class="click" id="td21"></td>
+					<td class="click" id="td22"></td>
+				</tr>
+			</tbody>
+		</table>
+		<button class="btn btn-primary btn-sm" id="restart">Restart</button>
+	</div>
+
+	<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
+	<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script>
+        var board = [
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ];
+
+        function hasWinner() {
+            console.log(board); 
+            if (board[0][0] != 0) {
+                if (board[0][0] == board[0][1] && board[0][0] == board[0][2]) return board[0][0];
+                if (board[0][0] == board[1][0] && board[0][0] == board[2][0]) return board[0][0];
+                if (board[0][0] == board[1][1] && board[0][0] == board[2][2]) return board[0][0];
+            }
+            if (board[0][2] != 0) {
+                if (board[0][2] == board[1][2] && board[0][2] == board[2][2]) return board[0][2];
+                if (board[0][2] == board[1][1] && board[0][2] == board[2][0]) return board[0][2];
+            }
+            if (board[2][2] != 0) {
+                if (board[2][2] == board[2][0] && board[2][2] == board[2][1]) return board[2][2];
+            }
+            if (board[1][1] != 0) {
+                if (board[1][1] == board[0][1] && board[1][1] == board[2][1]) return board[1][1];
+                if (board[1][1] == board[1][0] && board[1][1] == board[1][2]) return board[1][1];
+            }
+            return 0;
+        }
+
+        function check(clickedX, clickedY, player) {
+            if (board[clickedX][clickedY] != 0) return false;
+            board[clickedX][clickedY] = player;
+            return true;
+        }
+
+        function clicked(clickedObj, player) {
+            if (player == 1) $(clickedObj).text("X");
+            else $(clickedObj).text("O");
+        }
+        
+        function selectPosition() {
+            
+            for (var i = 0; i < 3; i ++) {
+                for (var j = 0; j < 3; j++) {
+                    if (board[i][j] == 0) {
+                        if (Math.floor((Math.random()*10)%3) == 0) {
+                            board[i][j] = 2;
+                            clicked(`#td${i}${j}`,2);
+                            return 1;
+                        }
+                    }
+                }
+            }
+            
+            for (var i = 0; i < 3; i ++) {
+                for (var j = 0; j < 3; j++) {
+                    if (board[i][j] == 0) {
+                        board[i][j] = 2;
+                        clicked(`#td${i}${j}`,2);
+                        return 1;
+                    }
+                }
+            }
+             
+            return 0;
+        }
+        
+        function clear() {
+            $(".click").text("");
+            for (var i = 0; i < 3; i ++) {
+                for (var j = 0; j < 3; j++) {
+                    board[i][j] = 0;
+                }
+            }
+        }
+        
+        $("#restart").click(function() {
+            clear();
+        });
+
+        $(".click").click(function () {
+            if(check($(this).attr("id").substr(2, 1), $(this).attr("id").substr(3, 1), 1)) { clicked(this, 1);
+            if (hasWinner() == 1) { 
+                setTimeout(function() {
+                    alert("승리했습니다!");
+                    clear();
+                  }, 100);
+                return;
+            }
+            if (selectPosition()==0) {
+                setTimeout(function() {
+                    alert("무승부입니다!");
+                    clear();
+                  }, 100);
+                return;
+            }
+            if (hasWinner() == 2) {
+                setTimeout(function() {
+                    alert("패배했습니다!");
+                    clear();
+                  }, 100);
+                return;
+            }
+            }
+        });
+    </script>
+</body>
+
+</html>

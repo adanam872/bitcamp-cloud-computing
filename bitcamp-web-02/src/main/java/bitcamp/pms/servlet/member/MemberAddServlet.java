@@ -56,8 +56,6 @@ public class MemberAddServlet extends HttpServlet{
                     "study", "1111");
             PreparedStatement stmt = con.prepareStatement(
                 "insert into pms2_member(mid,email,pwd) values(?,?,PASSWORD(?))");
-            
-            
             stmt.setString(1, mid);
             stmt.setString(2, email);
             stmt.setString(3, password);

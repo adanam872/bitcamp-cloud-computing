@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+</head>
+<body>
+
+	<h1>DOM API - 태그로 태그 찾기</h1>
+	
+	<h1 id="header1">제목 1</h1>
+	<h1 id="header2">제목 2</h1>
+	<h1 id="header3">제목 3</h1>
+	<h1 id="header4">제목 4</h1>
+	
+	<script>
+	   // 리턴값은 태그 객체이다.
+	   // 만약 같은 아이디가 여러개 있을 경우 첫번째 찾은 태그만 리턴한다.
+	   var e = document.getElementById("header3");
+	   console.log(e);
+	   
+	   // 웹브라우저는 ID가 지정된 태그에 대해서는 그 아이디로 window 객체에 보관한다.
+	   // 그래서 다음과 같이 아이디로 바로 태그객체를 가르킬 수 있다.
+	   console.log(header3);
+	   
+	   console.log(window.header3);
+    </script>
+    
+<!--     //knou100255 -->
+</body>
+</html>

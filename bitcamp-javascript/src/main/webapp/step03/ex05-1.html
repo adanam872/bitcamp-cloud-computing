@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+</head>
+<body>
+
+	<h1>함수 arguments </h1>
+
+
+	<script>
+	// parameter : 함수가 호출될 때 값을 받는 변수
+	// arguments : 함수를 호출할 때 넘겨주는 값
+	   function f1(a,b) {
+	       console.log(a,b);
+	   }
+	   // 기본 호출은 파라미터의 개수에 맞게 아규먼트를 전달하는 것이다.
+	   f1(100,200);
+	   
+	   // 자바 스크립트는 파라미터의 개수와 아규먼트의 개수가 일치하지 않아도 된다.
+	   f1();
+	   f1(100);
+	   f1(100, 200, 300);
+	</script>
+</body>
+</html>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,12 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import bitcamp.pms.domain.Member;
 import bitcamp.pms.service.MemberService;
 
+//@CrossOrigin
 @RestController
 @RequestMapping("/member")
 public class MemberController {
 
     @Autowired MemberService memberService;
     
+    //@CrossOrigin
     @RequestMapping("list")
     public Object list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "3") int size,
             Model model) throws Exception {
@@ -49,27 +52,40 @@ public class MemberController {
     }
 
     @PostMapping("add")
-    public String add(Member member) throws Exception {
+    public Object add(Member member) throws Exception {
+        
+        HashMap<String, Object> result = new HashMap<>();
         memberService.add(member);
-        return "redirect:list";
+        result.put("status", "success");
+        return result;
     }
     
     @RequestMapping("delete")
-    public String delete(String id) throws Exception {
+    public Object delete(String id) throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
 
-        memberService.delete(id);
-        return "redirect:list";
+        int count = memberService.delete(id);
+        if (count == 0) {
+            result.put("status", "fail");
+            result.put("error", "해당 아이디가 없습니다.");
+        } else {
+            result.put("status", "success");
+        }
+        return result;
     }
     
     @RequestMapping("update")
-    public String update(Member member) throws Exception {
+    public Object update(Member member) throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
 
         int count = memberService.update(member);
         if (count == 0) {
-            return "member/updatefail";
+            result.put("status", "fail");
+            result.put("error", "해당 아이디가 없습니다.");
         } else {
-            return "redirect:list";
+            result.put("status", "success");
         }
+        return result;
     }
     
     @RequestMapping("view/{id}")

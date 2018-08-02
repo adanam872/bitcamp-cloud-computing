@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+<style>
+img {
+    height : 600px;
+}
+</style>
+
+</head>
+<body>
+
+	<h1>DOM API - 자식 태그 추가하기</h1>
+
+	<div id="d1">
+		<img
+			src="http://mblogthumb2.phinf.naver.net/20131111_217/mijung0173_1384157619612Qoqm3_PNG/a.PNG?type=w2">
+		<img src="https://t1.daumcdn.net/cfile/tistory/2461864C58486A601B">
+		<img src="https://i.ytimg.com/vi/v7-wwTAKpew/maxresdefault.jpg">
+		<img
+			src="https://upload.wikimedia.org/wikipedia/commons/1/16/JenniferAnistonHWoFFeb2012.jpg">
+		<img src="https://i.ytimg.com/vi/4JipHEz53sU/maxresdefault.jpg">
+	</div>
+
+	<script>
+	
+	   setInterval(() => {
+	       var e = document.querySelector("#d1 > img:first-child");
+	        
+	        // d1 태그에 막내 자식 태그를 추가한다.
+	        d1.appendChild(e);
+	       
+	   }, 2000);
+        
+    </script>
+
+</body>
+</html>

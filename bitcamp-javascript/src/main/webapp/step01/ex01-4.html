@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+</head>
+<body>
+
+	<h1>script tag's type attribution</h1>
+
+	<script type="text/javascript">
+		// type 속성을 생략하면 기본 값이 "text/javascript"이다
+		// type 속성이 javascript가 아닌 경우 웹브라우저는 script 태그를 처리하지 못한다.
+		// 해당 태크는 일반 태그처럼 메모리에 로딩만 된다. 화면에 출력되지도 않는다.
+		// script tag 가 아닌 임의의 태그이면 화면에 출력된다.
+		console.log("hello!");
+	</script>
+
+	<script type="text/okok">
+       console.log("hello2!");
+    </script>
+    
+    <scropt>
+        console.log('okok');
+    </scropt>
+</body>
+</html>

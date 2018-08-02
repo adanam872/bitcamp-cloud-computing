@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+</head>
+<body>
+
+	<h1>함수 파라미터 - arguments 내장 배열</h1>
+
+
+	<script>
+	   // arguments 배열에 parameter로 받은 값들이 다 저장된다.
+	   function f1(a,b) {
+	       console.log(a,b);
+	       console.log("=================");
+	       console.log("length =", arguments.length);
+	       for (var value of arguments) {
+	           console.log(value);
+	       }
+	   }
+	   f1();
+	   f1(100);
+	   f1(100,200);
+	   f1(100, 200, 300);
+       f1(100, 200, 300, 400);
+	</script>
+</body>
+</html>

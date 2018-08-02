@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+</head>
+<body>
+
+	<h1>태그의 기본 행위를 막기 - form의 submit 이벤트</h1>
+
+	<form id="form1" action="http://www.naver.com/">
+		*이름 : <input id="fiName" type="text" name="name"><br> 
+		*나이 : <input id="fiAge"	type="number" name="age"><br> 
+		전화 : <input id="fiTel" type="text"	name="tel"><br> 
+		<input type="submit" value="등록">
+	</form>
+
+	<script>
+	// onsubmit의 리턴 값이 false 이면 실행하지 않는 특징을 이용한다.
+	// button 태그의 타입 기본 값은 submit이다. 따라서 타입을 지정하지 않으면 submit이기 때문에 조심하라
+	   form1.onsubmit = function checkValidate() {
+	       if (fiName.value.length == 0 || fiAge.value.length == 0) {
+	           
+	           alert("필수항목을 입력하세요!");
+	           return false;
+	       }
+	   }
+    </script>
+</body>
+</html>

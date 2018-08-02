@@ -25,8 +25,9 @@
 		</table>
 		<p>
 			<button type="button" id="eListBtn">목록</button>
-			<button type="button" id="eUpdateBtn">변경</button>
-			<button type="button" id="eDeleteBtn">삭제</button>
+			<button type="button" id="eUpdateBtn" class="viewform">변경</button>
+			<button type="button" id="eDeleteBtn" class="viewform">삭제</button>
+			<button type="button" id="eAddBtn" class="newform">등록</button>
 		</p>
 	</form>
 
@@ -36,9 +37,20 @@
 	var {id, page, size} = parseQuery(location.href);
     
     if (id == undefined) {
-        alert("아이디가 없습니다");
-        location.href="list.html";
+        var el = document.querySelectorAll(".viewform");
+        for (var e of el) {
+            e.style.display = 'none';
+        }
+//         eUpdateBtn.style.display = 'none';
+//         eDeleteBtn.style.display = 'none';
+        eId.removeAttribute("readonly");
     } else {
+        var el = document.querySelectorAll(".newform");
+        for (var e of el) {
+            e.style.display = 'none';
+        }
+//         eAddBtn.style.display = 'none';
+        
         var xhr = new XMLHttpRequest();
         console.log("=--=--=");
             
@@ -69,7 +81,91 @@
     }
     
     eListBtn.onclick = function() {
-        location.href = `list.html?page=${page}&size=${size}`;
+        if (page) {
+            location.href = `list.html?page=${page}&size=${size}`;
+        } else {
+            location.href = 'list.html';
+        }
+    };
+    
+    eAddBtn.onclick = function() {
+        var xhr = new XMLHttpRequest();
+        console.log("=--=--=");
+            
+        xhr.onreadystatechange = function() {
+            
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    location.href = 'list.html';
+                } else {
+                    alert("서버에서 오류발생");
+                    return;
+                }
+            }
+            
+        };
+        
+        xhr.open('POST','../../json/member/add',true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(`id=${eId.value}&email=${eEmail.value}&password=${ePassword.value}`);
+    }
+    
+    eUpdateBtn.onclick = function() {
+        var xhr = new XMLHttpRequest();
+        console.log("=--=--=");
+            
+        xhr.onreadystatechange = function() {
+            
+            if (xhr.readyState === 4) {
+                
+                if (xhr.status === 200) {
+                    let data = JSON.parse(xhr.responseText);
+                    if (data.status == "success") {
+                        location.href = `list.html?page=${page}&size=${size}`;
+                    } else {
+                        alert("변경 오류입니다!");
+                        console.log(data.error);
+                    }
+                } else {
+                    alert("서버에서 오류발생");
+                    return;
+                }
+            }
+            
+        };
+        
+        xhr.open('POST','../../json/member/update',true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(`id=${eId.value}&email=${eEmail.value}&password=${ePassword.value}`);
+    }
+    
+    eDeleteBtn.onclick = function() {
+        var xhr = new XMLHttpRequest();
+        console.log("=--=--=");
+            
+        xhr.onreadystatechange = function() {
+            
+            if (xhr.readyState === 4) {
+                
+                if (xhr.status === 200) {
+                    let data = JSON.parse(xhr.responseText);
+                    if (data.status == "success") {
+                        location.href = `list.html?page=${page}&size=${size}`;
+                    } else {
+                        alert("삭제 오류입니다!");
+                        console.log(data.error);
+                    }
+                } else {
+                    alert("서버에서 오류발생");
+                    return;
+                }
+            }
+            
+        };
+        
+        xhr.open('GET',
+                `../../json/member/delete?id=${eId.value}`,true);
+        xhr.send();
     }
     </script>
 </body>

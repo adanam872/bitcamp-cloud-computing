@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+</head>
+<body>
+
+	<h1>함수 - 함수 호이스팅</h1>
+
+	<script>
+        function f1() {
+            console.log("f1()...");
+        }
+        
+        f1();
+        
+        var f2 = f1; //함수명은 함수를 가리키는 변수이다.
+        
+        f2();
+    </script>
+</body>
+</html>

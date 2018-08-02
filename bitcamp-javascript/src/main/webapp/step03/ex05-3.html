@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+</head>
+<body>
+
+	<h1>함수 파라미터 - default parameter</h1>
+
+
+	<script>
+	   //default 파라미터는 arguments가 넘어오지 않을 때 기본값을 사용한다.
+	   function f1(a,b,c=80) {
+	       console.log("=>",a,b,c);
+	       console.log("=================");
+	       console.log("length =", arguments.length);
+	       for (var value of arguments) {
+	           console.log(value);
+	       }
+	   }
+	   f1();
+	   f1(100);
+	   f1(100,200);
+	   f1(100, 200, 300);
+       f1(100, 200, 300, 400);
+	</script>
+</body>
+</html>

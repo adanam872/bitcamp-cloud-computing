@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+</head>
+<body>
+
+	<h1>DOM API - 태그이름으로 태그 찾기</h1>
+	
+	<h1 id="header1">제목 1</h1>
+	<h1 id="header2">제목 2</h1>
+	<h1 id="header3">제목 3</h1>
+	<h1 id="header4">제목 4</h1>
+	
+	<script>
+	   // 리턴값은 태그 객체를 담고있는 HTMLCollection 객체이다.
+	   // 만약 해당 태그를 찾지 못했으면 빈 HTMLCollection을 리턴한다.
+	   var el = document.getElementsByTagName("h1");
+	   console.log(el);
+	   
+	   // HtmlColection은 배열이 아닌 Collection 객체이기 때문에 for in 사용시 객체 내용이 모두 출력된다.
+	   // for of 는 사용가능하다. because Collection
+    </script>
+    
+<!--     //knou100255 -->
+</body>
+</html>

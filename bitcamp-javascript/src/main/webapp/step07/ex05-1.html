@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+</head>
+<body>
+
+	<h1>태그의 기본 행위를 막기 - a 태그</h1>
+
+    <a id="a1" href="http://www.daum.net">다음</a>
+    <a id="a2" href="http://www.naver.net">네이버</a>
+
+	<script>
+	// a 태그의 기본행위 : 지정된 URL을 요청한다
+	   a1.onclick = function(event) {
+	       console.log("a1....click");
+	   };
+	   
+	   a2.onclick = function(event) {
+	       
+	       // a 태그의 기본행위를 막으려면
+	       event.preventDefault();
+           console.log("a2....click");
+       };
+    </script>
+</body>
+</html>

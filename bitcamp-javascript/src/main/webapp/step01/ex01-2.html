@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+</head>
+<body>
+
+	<h1>script tag의 실행 오류</h1>
+
+	<script>
+		console.log("1111");
+		
+		//자바스크립트를 실행하다가 오류가 발생하면
+		//해당 script 태그의 실행을 즉시 멈추고 다음 태그로 간다.
+		
+		fuckyou(); // 존재하지 않는 함수를 호출하여 오류를 발생
+		console.log("2222");
+	</script>
+	
+	<h2>title2</h2>
+	
+	<script>
+        console.log("3333");
+        
+        pleasestop(); // 존재하지 않는 함수를 호출하여 오류를 발생
+        console.log("4444");
+    </script>
+</body>
+</html>

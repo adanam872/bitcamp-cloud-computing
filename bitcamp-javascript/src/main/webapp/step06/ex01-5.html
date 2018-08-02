@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+</head>
+<body>
+
+	<h1>DOM API - css selector로 태그 찾기 II</h1>
+	<div id="d1">
+		<h2 class="g1 g3">d1.제목 1</h2>
+		<h2 class="g1">d1.제목 2</h2>
+		<h2 class="g1 g2 g3">d1.제목 3</h2>
+		<h2 class="g2">d1.제목 4</h2>
+	</div>
+
+	<div id="d2">
+		<h2 class="g1 g3">d2.제목 1</h2>
+		<h2 class="g1">d2.제목 2</h2>
+		<h2 class="g1 g2 g3">d2.제목 3</h2>
+		<h2 class="g2">d2.제목 4</h2>
+	</div>
+
+	<h2 class="g1 g3">제목 1</h2>
+	<h2 class="g1">제목 2</h2>
+	<h2 class="g1 g2 g3">제목 3</h2>
+	<h2 class="g2">제목 4</h2>
+
+	<script>
+	   // querySelectorA;;(selector)
+	   // 리턴값은 태그 NodeList 객체이다 여러개의 태그를 찾을 때 사용한다.
+	          
+       el = document.querySelectorAll("div > .g1.g3");
+       console.log(el);
+       console.log("----------------");
+       
+       for (var e of el) {
+           console.log(e);
+       }
+       
+       // nodeList는 배열은 아니지만 Colletcion 타입이기 때문에 
+       // for of 에 사용할 수 있다. for in 에서는 사용할 수 없다.
+    </script>
+
+	<!--     //knou100255 -->
+</body>
+</html>

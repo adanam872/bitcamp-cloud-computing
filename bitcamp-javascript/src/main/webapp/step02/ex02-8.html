@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+</head>
+<body>
+	<h1>반복문 - 객체에 for..in 적용</h1>
+	<script>
+        
+        var obj = new Object();
+        obj.name = "홍길동";
+        obj.kor = 100;
+        obj.eng = 100;
+        obj.math = 96;
+        obj.sum = obj.kor + obj.eng + obj.math;
+        obj.avg = obj.sum/3;
+        
+        var myMap = new Map();
+        myMap.set("name","홍길동");
+        myMap.set("kor",100);
+        myMap.set("eng",100);
+        myMap.set("math",96);
+        myMap.set("sum",296);
+        myMap.set("avg",myMap.get("sum")/3);
+        
+        for (var entry of myMap) {
+            console.log(entry);
+        }
+    </script>
+</body>
+</html>

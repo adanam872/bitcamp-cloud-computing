@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+</head>
+<body>
+
+	<h1>이벤트 객체 - 이벤트 정보 추출하기</h1>
+
+	<button id="btn1">button1</button>
+	<textarea rows="5" cols="50" id="txt1"></textarea>
+	<span id="textCnt">0</span>/140
+	<br>
+	<button id="btn2">button2</button>
+	<button id="btn3">button3</button>
+	<button id="btn4">button4</button>
+
+	<script>
+	    // keydown 이벤트는 key 값이 화면에 입력되기 전에 발생한다.
+	    // 모든 key에 대해 이벤트가 발생한다
+        txt1.onkeydown = function(event) {
+            console.log("onkeydown");
+            //textCnt.innerHTML = txt1.value.length;
+        };
+
+        // keyup 이벤트는 key값이 화면에 출력되고 key를 뗐을 때 발생한다
+        // 모든 key에 대해 발생
+        txt1.onkeyup = function(event) {
+            console.log("onkeyup");
+            //textCnt.innerHTML = txt1.value.length;
+        };
+
+        // key값 입력 전 발생, textkey에 대해서만 발생
+        txt1.onkeypress = function(event) {
+            console.log("onkeypress");
+        };
+    </script>
+</body>
+</html>

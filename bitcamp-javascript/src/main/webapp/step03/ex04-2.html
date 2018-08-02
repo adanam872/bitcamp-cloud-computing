@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+</head>
+<body>
+
+	<h1>클로저(closure) - 바깥 함수의 로컬 변수 복제 2</h1>
+
+	<script>
+        function outer(p1) {
+
+            var result = p1;
+            
+            var obj = new Object();
+            obj.f1 = function() {result += 1};
+            obj.f2 = function() {result += 10};
+            obj.f3 = function() {p1  += 100};
+            obj.f4 = function() {console.log(p1)};
+            
+            return obj;
+        }
+        var x = outer(100);
+        var y = outer(200);
+    </script>
+</body>
+</html>

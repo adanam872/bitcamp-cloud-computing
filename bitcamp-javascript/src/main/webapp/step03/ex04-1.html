@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+</head>
+<body>
+
+	<h1>클로저(closure) - 바깥 함수의 로컬 변수 복제하기</h1>
+
+	<script>
+        function f1(p1) {
+
+            var sum = 0;
+            for (var i = 1; i <= p1; i++) {
+                sum += i;
+            }
+            var x = function() {
+                console.log("합계 =", sum);
+                //내부 함수에서 바깥 함수의 로컬 변수를 참조한다면
+                //내부 함수는 closure만 새용하는 별도의 메모리에
+                //참조하는 바깥 함수의 변수를 복제한다
+                //왜? 바깥함수의 호출이끝나 로컬 변수가 사라지더라도 
+                //자신은 영향을 받지 않고 그 변수의 값을 사용하기 위함이다.
+            }
+            return x;
+        }
+        var a = f1(10);
+    </script>
+
+	<script>
+        var x = f1("+");
+        var y = f1("+");
+
+        if (x == y) {
+            console.log("x == y");
+        }
+    </script>
+</body>
+</html>

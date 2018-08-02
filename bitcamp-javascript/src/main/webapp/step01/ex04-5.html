@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+</head>
+<body>
+
+	<h1>변수 선언 - 로컬 변수</h1>
+
+	<script type="text/javascript">
+	
+	   // 자바스크립트의 로컬 변수는 오직 함수안에 선언된 변수이다.
+	   
+	   var a = 100;
+	   
+	   function f() {
+		   var b;
+		   b = 200;
+		   
+		   // 당연히 함수에서는 window 객체에 소속된 변수를 사용할 수 있다.
+		   console.log("f() : ", a);
+		   console.log("f() : ", b);
+	   }
+	   
+	   //함수 밖에서는 함수의 로컬 변수를 사용할 수 없다.
+	   console.log("f() : ", a);
+       console.log("f() : ", b);
+	</script>
+</body>
+</html>

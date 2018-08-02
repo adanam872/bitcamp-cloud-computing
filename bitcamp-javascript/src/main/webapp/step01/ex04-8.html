@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+</head>
+<body>
+
+	<h1>변수 선언 - 중복 선언</h1>
+
+	<script type="text/javascript">
+	   var a = 100;
+	   
+	   // 자바 스크립트는 변수를 중복 선언해도 오류가 아니다.
+	   // 왜? 변수 이름은 window 객체에 값을 넣는 키이기 때문이다.
+	   // 자바의 맵 객체를 떠올리면 이해가 될 것이다.
+	   var a = 200;
+	   
+	   var a = "hello";
+	   
+	   console.log(a);
+	</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+</head>
+<body>
+
+	<h1>프로그래밍으로 이벤트 발생 시키기 - 클릭 이벤트 발생시키기</h1>
+
+    
+    <span id="txt1">이벤트 발생시키기</span>
+
+	<button id="btn1">button1</button>
+	
+
+	<script>
+	   txt1.onclick = function() {
+	       console.log("텍스트 눌렀음!");
+	       
+	    // 발생시킬 이벤트 객체 준비
+	       var e = new MouseEvent("click");
+	    // 이벤트 발생 대상 객체에 dispatchEvent() 호출
+	       btn1.dispatchEvent(e);
+	   };
+	   
+	   btn1.onclick = function() {
+           console.log("버튼 눌렀음!");
+       };
+    </script>
+</body>
+</html>

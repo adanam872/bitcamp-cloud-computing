@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+</head>
+<body>
+
+	<h1>기타 변수 - let 변수와 block</h1>
+
+	<script type="text/javascript">
+	   var a = 100;
+	   {
+	       var a = 200;
+	       console.log(a);
+	   }
+	   console.log(a);
+	   
+	   let b= 1000;
+	   {
+	       let b = 2002; // block 안에서만 사용되는 새 변수를 선언
+	       console.log(b);
+	   }
+	   console.log(b);
+	</script>
+</body>
+</html>

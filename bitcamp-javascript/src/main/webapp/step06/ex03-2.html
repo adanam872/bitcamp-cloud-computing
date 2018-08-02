@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+<style>
+.strong {
+	font-weight: bolder;
+	background-color: black;
+	color: white;
+}
+</style>
+
+</head>
+<body>
+
+	<h1>DOM API - 속성변경</h1>
+
+	<h1>제목1</h1>
+	<h1>제목2</h1>
+	<h1>제목3</h1>
+	<h1>제목4</h1>
+
+	<script>
+        var e = document.querySelector("h1:nth-child(2)");
+        e.innerHTML ="'" + e.innerHTML + "'"; 
+        e.className = "strong";
+        //e.setAttribute("class","strong");
+    </script>
+
+</body>
+</html>

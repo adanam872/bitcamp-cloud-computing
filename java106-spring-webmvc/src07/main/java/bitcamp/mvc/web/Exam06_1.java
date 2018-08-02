@@ -1,6 +1,8 @@
 // 요청 핸들러의 리턴 값 - 콘텐트를 직접 리턴하기
 package bitcamp.mvc.web;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +38,14 @@ public class Exam06_1 {
         return "Exam06_1.m2() ==> 012ABCabc#!@가각간";
     }
     
+    @GetMapping(value="m3")  
+    @ResponseBody  
+    public String m3(HttpServletResponse response) {
+        
+        //직접 데이터를 리턴할 때는 setContetTyoe()이 적용되지 않는다.
+        response.setContentType("text/plan; charset=UTF-8");
+        return "Exam06_1.m3() ==> 012ABCabc#!@가각간";
+    }
 }
 
 

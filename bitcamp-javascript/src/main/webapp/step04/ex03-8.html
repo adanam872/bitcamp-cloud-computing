@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+
+</head>
+<body>
+
+	<h1>함수 객체와 메서드</h1>
+
+	<script>
+    function Calc(v) {
+        this.value = v;
+    }
+    
+    Calc.prototype.plus = function(v) {this.value += v};
+    Calc.prototype.minus = function(v) {this.value -= v};
+    
+    var c1 = new Calc(100);
+    c1.plus(50);
+    c1.plus(20);
+    c1.minus(80);
+    console.log(c1.value);
+    
+    function Calc2(v) {
+        // 호출할 상위 생성자를 지정하지 않으면 자동으로 Object() 생성자가 호출된다.
+        Calc.call(this, v);
+        
+        // 만약 프로퍼티 변수를 추가하고 싶다면 다음과 같이 추가하면 된다.
+        this.test = "Hello!";
+    }
+    
+    // Calc2가 사용할 prototype 객체는 기본으로 Object() 객체를 사용한다.
+    // 다른 말로 Calc2는 Object를 원형으로 객체를 생성한다는 것이다.
+    // 이 원형을 Calc로 바꿔 줘야 한다.
+    Calc2.prototype = Object.create(Calc.prototype);
+    
+    // 생성자 정보가 Calc로 바뀌기 때문에 유지보수를 위해 바꿔 주는 것이 좋다.
+    Calc2.prototype.constructor = Calc2;
+    
+    Calc2.prototype.multiple = function(v) {this.value *= v};
+    Calc2.prototype.divide = function(v) {this.value /= v};
+    
+    var c2 = new Calc2(1000);
+    
+    
+    console.log(c2);
+    
+    
+    // 자바 스크립트 연산자 중에서 객체가 어떤 생성자를 통해 초기화 되었는지
+    // 조사하는 연산자가 있다.
+    
+    if (c1 instanceof Object) console.log("c1");
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>javascript</title>
+<style>
+button {
+	height: 30px;
+	margin: 20px;
+}
+
+div[id^='d1'] {
+	margin: 20px;
+	border: 1px solid red;
+}
+
+div[id^='d2'] {
+	margin: 20px;
+	border: 1px solid blue;
+}
+</style>
+</head>
+<body>
+
+	<h1>이벤트 전달 단계 - 전달 순서</h1>
+
+	<div id="d1">
+		d1
+		<div id="d11">
+			d11
+			<button id="btn1">button1</button>
+			<button id="btn2">button2</button>
+		</div>
+		<div id="d12">
+			d12
+			<button id="btn3">button3</button>
+			<button id="btn4">button4</button>
+		</div>
+	</div>
+
+	<div id="d2">
+		d2
+		<div id="d21">
+			d21
+			<button id="btn5">button5</button>
+			<button id="btn6">button6</button>
+		</div>
+		<div id="d22">
+			d22
+			<button id="btn7">button7</button>
+			<button id="btn8">button8</button>
+		</div>
+	</div>
+
+	<script>
+	
+	// capture 단계에서 리스너가 호출되도록 하려면 onxxx 방식으로는 처리할 수 없다.
+	// addEventListener()를 호출할 때만 가능하다
+	// 방법 : e.addEventListener("이벤트명", 함수() {}, 캡쳐여부);
+        d1.onclick = function() {
+            console.log("d1")
+        };
+        d11.onclick = function() {
+            console.log("d11")
+        };
+        d12.onclick = function() {
+            console.log("d12")
+        };
+        d2.addEventListener("click", function() {
+            console.log("d2")
+        },true);
+        d21.addEventListener("click", function() {
+            console.log("d21")
+        },true);
+        d22.addEventListener("click", function() {
+            console.log("d22")
+        });
+
+            // 만약 한 태그에 여러개의 리스너가 등록 된다면?
+        btn1.addEventListener = function(event) {
+            console.log("btn1.");
+            // 버블링 하지 말라는거지 타겟은 막지 않는다.
+            event.stopPropagation();
+        };
+        btn1.addEventListener = function(event) {
+            console.log("btn1..");
+        };
+        btn1.addEventListener = function(event) {
+            console.log("btn1...");
+        };
+        btn2.addEventListener = function(event) {
+            console.log("btn2.");
+            // 만약 현재 리스너까지만 실행되게 하고 싶다면
+            // stopImmediatePropagation()을 호출하라
+            event.stopImmediatePropagation();
+        };
+        btn2.addEventListener = function(event) {
+            console.log("btn2..");
+        };
+        btn2.addEventListener = function(event) {
+            console.log("btn2...");
+        };
+        btn3.onclick = function() {
+            console.log("btn3")
+        };
+        btn4.onclick = function() {
+            console.log("btn4")
+        };
+        btn5.addEventListener("click", function() {
+            console.log("btn5")
+        },true);
+        btn6.onclick = function() {
+            console.log("btn6")
+        };
+        btn7.onclick = function() {
+            console.log("btn7")
+        };
+        btn8.onclick = function() {
+            console.log("btn8")
+        };
+    </script>
+</body>
+</html>
