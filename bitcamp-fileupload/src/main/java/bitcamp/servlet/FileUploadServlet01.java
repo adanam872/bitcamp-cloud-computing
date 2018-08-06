@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -63,6 +61,13 @@ public class FileUploadServlet01 extends HttpServlet {
 //        out.printf("age = %s\n", paramMap.get("age"));
 //        out.printf("photo = %s\n", paramMap.get("photo"));
         out.printf("<a href = 'files/%s'>링크</a>", paramMap.get("photo"));
+        out.println("<p><img id='img1'></p>");
+        out.println("<script>");
+        out.println("setTimeout(() => {");
+        out.printf("document.getElementById('img1').src = 'files/%s';",paramMap.get("photo"));
+        out.println("}, 5000);");
+        out.println("</script>");
+        
         out.println("</body></html>");
     }
 }
