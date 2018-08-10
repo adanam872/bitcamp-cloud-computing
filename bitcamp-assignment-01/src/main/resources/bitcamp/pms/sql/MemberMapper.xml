@@ -17,6 +17,11 @@
 		name, pwd) values (#{email}, #{name}, #{password})
 	</insert>
 
+    <insert id="add" parameterType="Card">
+        insert into memo (id, name, phone, home, fax, email, memo) 
+        values (#{id}, #{name}, #{phone}, #{home}, #{fax}, #{email}, #{memo})
+    </insert>
+
 	<select id="selectOne" resultType="int" parameterType="Member">
 		select seq from member where email=#{email} and pwd=#{password}
 	</select>

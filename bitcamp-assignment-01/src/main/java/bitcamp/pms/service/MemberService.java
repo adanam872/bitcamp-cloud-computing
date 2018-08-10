@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import bitcamp.pms.dao.MemberDao;
+import bitcamp.pms.domain.Card;
 import bitcamp.pms.domain.Member;
 
 @Service
@@ -17,6 +18,10 @@ public class MemberService {
 
     public void add(Member member) {
         memberDao.insert(member);
+    }
+    
+    public void add2(Card card) {
+        memberDao.add(card);
     }
     
     public int get(Member member) {

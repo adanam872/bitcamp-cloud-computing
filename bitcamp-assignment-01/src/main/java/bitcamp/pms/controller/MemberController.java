@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import bitcamp.pms.domain.Card;
 import bitcamp.pms.domain.Member;
 import bitcamp.pms.service.MemberService;
 
@@ -19,6 +20,12 @@ public class MemberController {
     @PostMapping("add")
     public String add(Member member) throws Exception {
         memberService.add(member);
+        return "redirect:list";
+    }
+    
+    @PostMapping("add2")
+    public String add2(Card card) throws Exception {
+        memberService.add2(card);
         return "redirect:list";
     }
     

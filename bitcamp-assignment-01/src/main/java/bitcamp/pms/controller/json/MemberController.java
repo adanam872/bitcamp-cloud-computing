@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import bitcamp.pms.domain.Card;
 import bitcamp.pms.domain.Member;
 import bitcamp.pms.service.MemberService;
 
@@ -28,6 +29,15 @@ public class MemberController {
         
         HashMap<String, Object> result = new HashMap<>();
         memberService.add(member);
+        result.put("status", "success");
+        return result;
+    }
+    
+    @PostMapping("add2")
+    public Object add2(Card card) throws Exception {
+        
+        HashMap<String, Object> result = new HashMap<>();
+        memberService.add2(card);
         result.put("status", "success");
         return result;
     }
