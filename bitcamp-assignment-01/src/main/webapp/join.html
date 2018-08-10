@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>명함관리시스템 ver0.01</title>
+<link rel="stylesheet"
+	href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+<style>
+.container {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.form-group {
+	text-align: left;
+}
+
+form {
+	margin: auto;
+}
+</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>회원가입</h1>
+		<hr>
+
+		<form class="col-md-4 center-block">
+			<div class="form-group">
+				<label for="inputEmail1">Email</label> <input type="email"
+					class="form-control" id="inputEmail1"
+					aria-describedby="emailHelp">
+			</div>
+			<div class="form-group">
+				<label for="inputName1">이름</label> <input type="text"
+					class="form-control" id="inputName1">
+			</div>
+			<div class="form-group">
+				<label for="inputPassword1">비밀번호</label> <input
+					type="password" class="form-control" id="inputPassword1">
+			</div>
+			<button id="eAddBtn" type="button" class="btn btn-primary" style="width: 100%;">회원가입</button>
+		</form>
+		<hr>
+		© 2018 정현컴퍼니
+	</div>
+	<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="./node_modules/popper.js/dist/umd/popper.min.js"></script>
+	<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script>
+        $(eAddBtn).click(function() {
+            console.log("======");
+            $.ajax('http://192.168.0.30:8080/bitcamp-assignment-01/' + '/json/member/add', {
+                method : 'POST',
+                dataType : 'json',
+                data : {
+                    email : $(inputEmail1).val(),
+                    name : $(inputName1).val(),
+                    password : $(inputPassword1).val()
+                },
+                success : function(data) {
+                    if (data.status == "success") {
+                        location.href = 'index.html';
+                    } else {
+                        alert("오류입니다!");
+                        console.log(data.error);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

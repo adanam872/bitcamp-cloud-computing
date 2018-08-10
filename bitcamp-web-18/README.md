@@ -51,4 +51,12 @@
 
 
 - Cross Domain 설정
-- @CrossOrigin 혹은 
+- @CrossOrigin 혹은 <mvc-cors> 태그로 설정하기
+
+### html17
+템플릿 엔진 적용하여 HTML 태그를 생성한다
+- handlebars 라이브러리 가져오기
+- 'npm install handlebars --save'
+- html 페이지 라이브러리 삽입
+- <script src='...'></script>
+- 자바스크립트 사용하기 

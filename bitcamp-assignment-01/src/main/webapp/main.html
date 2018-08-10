@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>명함관리시스템 ver0.01</title>
+<link rel="stylesheet"
+	href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+<style>
+.container {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.datascroll {
+	overflow: auto;
+	height: 600px;
+	margin-top: 20px;
+	text-align: left;
+}
+
+.card {
+	height: 600px;
+}
+
+.btngroup {
+	text-align: right;
+	margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+	<div class="container">
+		<nav class="nav">
+			<a class="navbar-brand" href="#">개인명함관리</a> <a id="eUnjoin"
+				class="nav-link" href="#">회원탈퇴</a> <a id="eLogout" class="nav-link"
+				href="#">로그아웃</a>
+		</nav>
+		<hr>
+		<div class="contents">
+			<div class="col-md-3" style="float: left;">
+				<div class="input-group">
+					<input class="form-control py-2" type="search"
+						id="example-search-input"> <span
+						class="input-group-append">
+						<button class="btn btn-outline-secondary" type="button">
+							검색</button>
+					</span>
+				</div>
+				<div class="datascroll">
+					홍길동 <br> 정지원 <br> 임꺽정 <br> 홍길동 <br> 정지원 <br>
+					임꺽정 <br> 홍길동 <br> 정지원 <br> 임꺽정 <br> 홍길동 <br>
+					정지원 <br> 임꺽정 <br> 홍길동 <br> 정지원 <br> 임꺽정 <br>
+					홍길동 <br> 정지원 <br> 임꺽정 <br> 홍길동 <br> 정지원 <br>
+					임꺽정 <br> 홍길동 <br> 정지원 <br> 임꺽정 <br> 홍길동 <br>
+					정지원 <br> 임꺽정 <br> 홍길동 <br> 정지원 <br> 임꺽정 <br>
+					홍길동 <br> 정지원 <br> 임꺽정 <br> 홍길동 <br> 정지원 <br>
+					임꺽정 <br> 홍길동 <br> 정지원 <br> 임꺽정 <br> 홍길동 <br>
+					정지원 <br> 임꺽정 <br> 홍길동 <br> 정지원 <br> 임꺽정 <br>
+					홍길동 <br> 정지원 <br> 임꺽정 <br> 홍길동 <br> 정지원 <br>
+					임꺽정 <br> 홍길동 <br> 정지원 <br> 임꺽정 <br> 홍길동 <br>
+					정지원 <br> 임꺽정 <br> 홍길동 <br> 정지원 <br> 임꺽정 <br>
+				</div>
+			</div>
+			<div class="col-md-9" style="float: right;">
+				<div class="card">
+					<div>
+						<table class="table table-borderless">
+							<tbody>
+								<tr>
+									<th scope="row">이름</th>
+									<td>김수영</td>
+								</tr>
+								<tr>
+									<th scope="row">휴대전화</th>
+									<td>010-4234-3677</td>
+								</tr>
+								<tr>
+									<th scope="row">일반전화</th>
+									<td>02-233-4355</td>
+								</tr>
+								<tr>
+									<th scope="row">팩스</th>
+									<td>02-233-4355</td>
+								</tr>
+								<tr>
+									<th scope="row">이메일</th>
+									<td>dreamguy@tetsrow.com</td>
+								</tr>
+								<tr>
+									<th scope="row">메모</th>
+									<td style="max-width: 400px;">약간 그런느낌이 들어요 왜 길거리에 보는 차에 치여
+										죽은 비둘기 시체 있잖아요, 그게 이 사람의 미래같다는 그런 생각이 들었어요. 어떻게 보면 아프리카 초원에
+										널려있는 저 코끼리 똥같은 그런 느낌도 들었구요 ㅎㅎ</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="btngroup">
+					<button type="button" class="btn btn-primary btn-sm">추가</button>
+					<button type="button" class="btn btn-primary btn-sm">편집</button>
+					<button type="button" class="btn btn-primary btn-sm">삭제</button>
+				</div>
+			</div>
+			<div class="clear-both" style="clear: both;"></div>
+		</div>
+
+		<hr>
+		© 2018 정현컴퍼니
+	</div>
+	<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="./node_modules/popper.js/dist/umd/popper.min.js"></script>
+	<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="http://lab.alexcican.com/set_cookies/cookie.js"
+		type="text/javascript"></script>
+	<script>
+        var seq = $.cookie("seq");
+
+        if (!seq) {
+            alert("로그인을 먼저 해주세요!");
+            location.href = 'index.html';
+        }
+
+        $(eLogout).click(function() {
+            $.removeCookie('seq', {
+                path : '/'
+            });
+            location.href = 'index.html';
+        });
+        
+        $(eUnjoin).click(function() {
+            $.ajax('http://192.168.0.30:8080/bitcamp-assignment-01/' + '/json/member/delete', {
+                method : 'POST',
+                dataType : 'json',
+                data : {
+                    id : seq
+                },
+                success : function(data) {
+                    if (data.status == "success") {
+                        location.href = 'index.html';
+                    } else {
+                        alert("오류입니다!");
+                        console.log(data.error);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

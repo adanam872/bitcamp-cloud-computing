@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bitcamp.pms.annotation.RequestMapping;
-import bitcamp.pms.controller.PageController;
 
 @SuppressWarnings("serial")
 @WebServlet("/app/*")

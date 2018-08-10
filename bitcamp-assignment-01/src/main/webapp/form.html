@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>명함관리시스템 ver0.01</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        form {
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>회원가입</h1>
+        <hr>
+
+        <form class="center-block">
+            <div class="form-group">
+                <label for="exampleInputName1">이름</label>
+                <input type="text" class="form-control" id="exampleInputName1">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPhoneNumber1">휴대전화</label>
+                <input type="text" class="form-control" id="exampleInputPhoneNumber1">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPhoneNumber2">일반전화</label>
+                <input type="text" class="form-control" id="exampleInputPhoneNumber2">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFax1">팩스</label>
+                <input type="text" class="form-control" id="exampleInputFax1">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email 주소</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputMemo1">메모</label>
+                <textarea class="form-control" id="exampleInputMemo1" style="height: 200px;"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">입력하기</button>
+        </form>
+        <hr> © 2018 정현컴퍼니
+    </div>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
